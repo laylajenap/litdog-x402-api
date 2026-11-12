@@ -15,6 +15,12 @@ network **Base (`eip155:8453`)**, payTo wallet user
 > `/v1/litdog` 402). cloudflared dicoba ulang 3× (SSL_CERT_FILE, system CA store,
 > debug) — tetap gagal; dibuktikan definitif mengabaikan proxy. Menunggu keputusan
 > user: ngrok (butuh authtoken gratis dari user) atau deploy ke PaaS via GitHub.
+>
+> **UPDATE — 12 Nov 2026 ~08:37 WIB:** Render DIBLOKIR — deploy gratis minta kartu
+> kredit (hold sementara $1, dialog "Add Card"). Form deploy sudah terisi lengkap,
+> tidak ada kartu dimasukkan, service belum dibuat. Beralih ke Vercel Hobby (tanpa
+> kartu): tambah wrapper serverless `api/index.js` + `vercel.json`; `server.mjs`
+> sekarang export app & `listen` hanya saat dijalankan langsung (`node server.mjs`).
 
 ## Endpoints (server lokal: http://127.0.0.1:4021)
 

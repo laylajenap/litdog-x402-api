@@ -15,6 +15,7 @@
 // No private keys, no wallet access, no funds are used by this server.
 
 import express from "express";
+import { fileURLToPath } from "url";
 import { paymentMiddleware, x402ResourceServer } from "@x402/express";
 import { HTTPFacilitatorClient } from "@x402/core/server";
 import { ExactEvmScheme } from "@x402/evm/exact/server";
@@ -271,8 +272,17 @@ app.get("/v1/litdog", (_req, res) => {
   res.json(LITDOG_FACTS);
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`[litdog-api] listening on http://${HOST}:${PORT}`);
-  console.log(`[litdog-api] facilitator: ${FACILITATOR_URL}`);
-  console.log(`[litdog-api] GET /v1/litdog -> ${PRICE} USDC on ${NETWORK} to ${PAY_TO}`);
-});
+export default app;
+
+// Only listen when run directly (`node server.mjs`). When imported (e.g. by
+// Vercel's serverless wrapper api/index.js) the platform serves the app, so
+// binding a port here would be wrong.
+const isMain =
+  process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  app.listen(PORT, HOST, () => {
+    console.log(`[litdog-api] listening on http://${HOST}:${PORT}`);
+    console.log(`[litdog-api] facilitator: ${FACILITATOR_URL}`);
+    console.log(`[litdog-api] GET /v1/litdog -> ${PRICE} USDC on ${NETWORK} to ${PAY_TO}`);
+  });
+}
