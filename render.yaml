@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: litdog-x402-api
+    env: node
+    buildCommand: npm install
+    startCommand: node server.mjs
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: NODE_ENV
+        value: production
